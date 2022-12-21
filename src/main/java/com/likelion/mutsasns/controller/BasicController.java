@@ -14,6 +14,6 @@ public class BasicController {
 
     @GetMapping("/hello")
     public String hello1() {
-        return "hello";
+        return "ci/cd test 성공?";
     }
 }
