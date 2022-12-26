@@ -12,6 +12,6 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "darkchocolate";
+        return "happy_new_year";
     }
 }
