@@ -1,10 +1,7 @@
 package com.likelion.mutsasns.controller;
 
 import com.likelion.mutsasns.domain.Response;
-import com.likelion.mutsasns.domain.dto.UserDto;
-import com.likelion.mutsasns.domain.dto.UserJoinRequest;
-import com.likelion.mutsasns.domain.dto.UserJoinResponse;
-import com.likelion.mutsasns.domain.dto.UserLoginRequest;
+import com.likelion.mutsasns.domain.dto.*;
 import com.likelion.mutsasns.service.UserService;
 import lombok.RequiredArgsConstructor;
 
@@ -24,13 +21,13 @@ public class UserController {
     @PostMapping("/join")
     public Response<UserJoinResponse> join(@RequestBody UserJoinRequest userJoinRequest) {
         UserDto userDto = userService.join(userJoinRequest);
-        return Response.success(new UserJoinResponse(userDto.getUserName()));
+        return Response.success(new UserJoinResponse(userDto.getId(), userDto.getUserName()));
     }
 
     @PostMapping("/login")
-    public Response<String> login(@RequestBody UserLoginRequest userLoginRequest) {
+    public ResponseEntity<Response<LoginResponse>> login(@RequestBody UserLoginRequest userLoginRequest) {
         String token = userService.login(userLoginRequest.getUserName(), userLoginRequest.getPassword());
-        //return ResponseEntity.ok().body(token);
-        return Response.login_success(token);
+        LoginResponse loginResponse = new LoginResponse(token);
+        return ResponseEntity.ok().body(Response.success(loginResponse));
     }
 }
