@@ -6,10 +6,10 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 
-@Entity
-@NoArgsConstructor
-@Getter
-@ToString
-public class Post {
-
-}
+//@Entity
+//@NoArgsConstructor
+//@Getter
+//@ToString
+//public class Post {
+//
+//}
