@@ -21,6 +21,10 @@ public class Response<T> {
         return new Response<>("SUCCESS",  result);
     }
 
+    public static <T> Response<T> login_success(T result) {
+        return new Response<>("jwt",  result);
+    }
+
     public static Response<Void> success() {
         return new Response("SUCCESS",  null);
     }
