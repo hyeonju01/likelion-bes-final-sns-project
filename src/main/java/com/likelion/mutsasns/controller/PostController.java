@@ -25,7 +25,7 @@ public class PostController {
 
     private final PostRepository postRepository;
 
-//    // di
+//    // di -> @AllArgsConstructor 어노테이션으로 생략
 //    public PostController(PostService postService, PostRepository postRepository) {
 //        this.postService = postService;
 //        this.postRepository = postRepository;
