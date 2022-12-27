@@ -51,7 +51,7 @@ class PostControllerTest {
         PostAddRequest dto = new PostAddRequest("제목", "내용");
 
         //mock test 코드 작성
-        when(postService.add(any())).thenReturn(new PostAddResponse(1L, dto.getTitle(), dto.getBody()));
+        //when(postService.add(any())).thenReturn(new PostAddResponse(1L, dto.getTitle(), dto.getBody()));
 
         // 검증
         mockMvc.perform(post("/api/v1/posts")
