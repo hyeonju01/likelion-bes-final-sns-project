@@ -1,12 +1,10 @@
 package com.likelion.mutsasns.domain.dto;
 
 import com.likelion.mutsasns.domain.Post;
-import com.likelion.mutsasns.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -22,12 +20,10 @@ public class PostResponse {
     private Long postId; //10
     private String title; // 글 제목
     private String body; // 글 본문
-    //private Long userId;
     private String userName; // 작성자 명
     private LocalDateTime createdAt; //작성일
     private LocalDateTime lastModifiedAt; //최종수정일
 
-    // 가독성 똥망ㅠ
     public static PostResponse of(Optional<Post> post) {
         return PostResponse.builder()
                 .postId(post.get().getId())
