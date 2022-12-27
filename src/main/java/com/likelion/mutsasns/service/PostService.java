@@ -15,23 +15,16 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
-
 public class PostService {
 
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
-
-//    public PostService(PostRepository postRepository, UserRepository userRepository) {
-//        this.postRepository = postRepository;
-//        this.userRepository = userRepository;
-//    }
 
     // 포스트 등록
     public PostAddResponse add(PostAddRequest dto) {
         Post post = dto.toEntity();
         Post registerdPost = postRepository.save(post);
-        return new PostAddResponse(registerdPost.getId(),
-                registerdPost.getTitle(), registerdPost.getBody());
+        PostAddResponse postAddResponse = new PostAddResponse(registerdPost.getId(), "포스트 등록 완료");
+        return postAddResponse;
     }
 
     // 포스트 상세 (1개 조회)
@@ -43,23 +36,39 @@ public class PostService {
 
     // 포스트 리스트 (최신 순, 20개씩)
     // 컴파일에러 수정하기
-//    public List<PostResponse> list(Pageable pageable) {
-//        //서비스 로직 추가
-//        Page<Post> posts = postRepository.findAll(pageable);
-//        List<PostResponse> postResponses = posts.stream()
-//                                                .map(post -> PostResponse.of(posts))
-//                                                .collect(Collectors.toList());
-//        return postResponses; // list 객체 반환
-//    }
+    public PostListResponse list(Pageable pageable) {
+        //서비스 로직 추가
+        Page<Post> posts = postRepository.findAll(pageable);
+        List<PostResponse> postResponses = posts.stream()
+                                                .map(post -> PostResponse.of(Optional.of(post)))
+                                                .collect(Collectors.toList());
+        PostListResponse postListResponse = new PostListResponse(postResponses);
+        return postListResponse; // list 객체 반환
+    }
 
     // 포스트 수정
-    public PostEditResponse edit(PostEditRequest dto) {
-        return new PostEditResponse();
+    public PostEditResponse edit(Long postId, PostEditRequest dto) {
+
+        Post updatePost = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException());
+        updatePost.setTitle(dto.getModifiedTitle());
+        updatePost.setBody(dto.getModifiedBody());
+        updatePost.setLastModifiedAt(dto.toEntity().getLastModifiedAt());
+
+        postRepository.save(updatePost);
+
+        PostEditResponse postEditResponse = new PostEditResponse(postId, "포스트 수정 완료");
+
+        return postEditResponse;
     }
 
     // 포스트 삭제
-    public PostDeleteResponse delete(PostDeleteRequest dto) {
+    public PostDeleteResponse deletePostById(Long id) {
 
-        return new PostDeleteResponse();
+        postRepository.deleteById(id);
+
+        PostDeleteResponse postDeleteResponse = new PostDeleteResponse(id, "포스트 삭제 완료");
+
+        return postDeleteResponse;
     }
 }
