@@ -11,7 +11,8 @@ public class PostDto {
     private String title;
     private String body;
 
+    // Post 객체 생성 메서드
     public Post toEntity() {
-        return new Post(this.id, this.title, this.body);
+        return new Post(title, body);
     }
 }
