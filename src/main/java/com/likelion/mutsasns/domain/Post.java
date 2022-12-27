@@ -22,7 +22,7 @@ public class Post extends BaseEntity{
     // 작성자가 동일한 포스트 여러 개는
     // 한 명의 작성자에게 속한다. -> ManyToOne
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "id", insertable = false, updatable = false)
     private User user;
 
     // PostDto를 위한 생성자
