@@ -47,11 +47,11 @@ public class PostController {
         return ResponseEntity.ok().body(Response.success(postResponse));
     }
 
-    // [ V ] 포스트 조회 기능 (List, 20개)
-    @GetMapping("")
-    public ResponseEntity<List<PostResponse>> getAll(Pageable pageable) {
-        return ResponseEntity.ok().body(postService.list(pageable));
-    }
+//    // [ V ] 포스트 조회 기능 (List, 20개)
+//    @GetMapping("")
+//    public ResponseEntity<List<PostResponse>> getAll(Pageable pageable) {
+//        return ResponseEntity.ok().body(postService.list(pageable));
+//    }
 
     // [  ] 포스트 수정 기능 대충 틀만 짬 - 구현중
 //    @PutMapping("{postsId}")
