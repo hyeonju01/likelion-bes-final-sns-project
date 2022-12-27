@@ -8,7 +8,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class PostAddResponse {
-    private Long id;
-    private String title;
-    private String body;
+    private Long createdPostId;
+    private String message;
 }
