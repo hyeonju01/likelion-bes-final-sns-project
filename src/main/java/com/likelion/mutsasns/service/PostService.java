@@ -54,8 +54,9 @@ public class PostService {
 
         Post updatePost = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException());
-        updatePost.setTitle(dto.getModifiedTitle());
-        updatePost.setBody(dto.getModifiedBody());
+        //updatePost.setTitle(dto.getModifiedTitle());
+        //updatePost.setBody(dto.getModifiedBody());
+        updatePost.editPost(dto.getModifiedTitle(), dto.getModifiedBody());
         updatePost.setLastModifiedAt(dto.toEntity().getLastModifiedAt());
 
         postRepository.save(updatePost);
