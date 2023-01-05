@@ -1,16 +1,17 @@
-package com.likelion.mutsasns.domain;
+package com.likelion.mutsasns.domain.entity;
 
 import com.likelion.mutsasns.domain.dto.PostDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
+@Setter //setter 없애는 쪽으로 리팩토링하기
 @ToString
 public class Post extends BaseEntity{
     @Id
@@ -25,6 +26,10 @@ public class Post extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "id", insertable = false, updatable = false)
     private User user;
+
+    // Comment엔티티와 양방향 매핑
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
 
     // PostDto를 위한 생성자
     public Post(String title, String body) {
