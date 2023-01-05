@@ -2,8 +2,10 @@ package com.likelion.mutsasns.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.SecurityReference;
@@ -24,19 +26,20 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.OAS_30)
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey()))
+                .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
     }
 
-//    private ApiInfo apiInfo() {
-//        return new ApiInfoBuilder()
-//                .title("Spring Boot Open API Test with Swagger")
-//                .description("2022-12-20 종합프로젝트 환경설정")
-//                .version("1.0.0")
-//                .build();
-//    }
+    private ApiInfo apiInfo() {
+        return new ApiInfoBuilder()
+                .title("🕊MutsaSNS API Documentation")
+                .description("멋쟁이사자처럼 백엔드스쿨을 수강하며 진행하는 SNS 앱 프로젝트의 API 문서입니다.")
+                .version("1.0.0")
+                .build();
+    }
 
     private SecurityContext securityContext() {
         return SecurityContext.builder()
