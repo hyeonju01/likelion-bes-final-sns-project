@@ -1,14 +1,16 @@
 package com.likelion.mutsasns.service;
 
-import com.likelion.mutsasns.domain.Post;
+import com.likelion.mutsasns.domain.entity.Post;
 import com.likelion.mutsasns.domain.dto.*;
 import com.likelion.mutsasns.repository.PostRepository;
-import com.likelion.mutsasns.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
+import java.security.PublicKey;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -28,19 +30,20 @@ public class PostService {
     }
 
     // 포스트 상세 (1개 조회)
-    public PostResponse getById(Long id) {
+    public PostResponse findPostDetailById (Long id) {
         //서비스 로직 추가
-        Optional<Post> OptionalPost = postRepository.findById(id);
-        return PostResponse.of(OptionalPost);
+        Optional<Post> postEntityWrapper = postRepository.findById(id);
+        // findById()의 반환값이 Optional이므로 get()을 하여 Post엔티티를 추출!
+        Post post = postEntityWrapper.get();
+        return PostResponse.of(post);
     }
 
     // 포스트 리스트 (최신 순, 20개씩)
-    // 컴파일에러 수정하기
-    public PostListResponse list(Pageable pageable) {
+    public PostListResponse list(@PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
         //서비스 로직 추가
         Page<Post> posts = postRepository.findAll(pageable);
         List<PostResponse> postResponses = posts.stream()
-                                                .map(post -> PostResponse.of(Optional.of(post)))
+                                                .map(post -> PostResponse.of(post))
                                                 .collect(Collectors.toList());
         PostListResponse postListResponse = new PostListResponse(postResponses);
         return postListResponse; // list 객체 반환
@@ -71,4 +74,5 @@ public class PostService {
 
         return postDeleteResponse;
     }
+
 }
