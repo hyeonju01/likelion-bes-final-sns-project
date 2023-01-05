@@ -1,17 +1,15 @@
 package com.likelion.mutsasns.controller;
 
 
-import com.likelion.mutsasns.domain.Response;
+import com.likelion.mutsasns.domain.entity.Response;
 import com.likelion.mutsasns.domain.dto.*;
+import com.likelion.mutsasns.service.CommentService;
 import com.likelion.mutsasns.service.PostService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -20,6 +18,8 @@ import java.util.Optional;
 public class PostController {
 
     private final PostService postService;
+
+    private final CommentService commentService;
 
     // 📌
     // [ V ] 포스트 등록 기능 구현
@@ -37,7 +37,7 @@ public class PostController {
     // [ v ] return 형식 맞추기
     @GetMapping("/{postsId}")
     public ResponseEntity<Response<PostResponse>> getById(@PathVariable Long postsId) {
-        PostResponse postResponse = postService.getById(postsId);
+        PostResponse postResponse = postService.findPostDetailById(postsId);
         return ResponseEntity.ok().body(Response.success(postResponse));
     }
 
@@ -67,9 +67,43 @@ public class PostController {
     // [ v ] 포스트 삭제 기능
     // [ v ] Swagger Test Passed
     // [ v ] return 형식 맞추기
+    // [  ] 포스트 삭제 시 포스트에 달린 댓글도 모두 삭제하는 기능 추가
     @DeleteMapping("/post/{id}")
     public ResponseEntity<Response<PostDeleteResponse>> deletePost(@PathVariable Long id) {
         PostDeleteResponse postDeleteResponse = postService.deletePostById(id);
         return ResponseEntity.ok().body(Response.success(postDeleteResponse));
     }
+
+    // 📌
+    // [  ] 댓글 작성
+    // [  ] Passed Swagger Test
+    // [  ] 리턴 형식 올바르게 나오는지 확인
+    @PostMapping("/{postId}/comments") //full uri: /api/v1/posts/{postId}/comments
+    public ResponseEntity<Response<CommentAddResponse>> makeComment(@PathVariable Long postId, @RequestBody CommentAddRequest commentAddRequest) {
+        CommentAddResponse commentAddResponse = commentService.add(postId, commentAddRequest);
+        return ResponseEntity.ok().body(Response.success(commentAddResponse));
+    }
+
+    // 📌****** 기능 구현 구글링 필요
+    // [  ] 댓글 목록 조회
+    // [  ] Passed Swagger Test
+    // [  ] 리턴 형식 올바르게 나오는지 확인
+//    @GetMapping("/{postId}/comments[?page=0]")
+//    public ResponseEntity<Response<CommentListRequest>> selectCommentList(@Param) {
+//        CommentListRequest commentListRequest = commentService.list(pageable)
+//    }
+
+
+    // 📌***** 기능 구현 구글링 필요
+    // [  ] 댓글 수정
+    // [  ] Passed Swagger Test
+    // [  ] 리턴 형식 올바르게 나오는지 확인
+//    @PutMapping("/{postId}/comments/{id}")
+
+    // 📌
+    // [  ] 댓글 삭제
+    // [  ] Passed Swagger Test
+    // [  ] 리턴 형식 올바르게 나오는지 확인
+//    @DeleteMapping("/{postId}/comments/{id}")
+
 }
