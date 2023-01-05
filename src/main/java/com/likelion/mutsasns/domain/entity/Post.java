@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter //setter 없애는 쪽으로 리팩토링하기
 @ToString
 public class Post extends BaseEntity{
     @Id
@@ -40,5 +39,10 @@ public class Post extends BaseEntity{
     // [V] of 메서드
     public static PostDto of(Post post) {
         return new PostDto(post.getId(), post.getTitle(), post.getBody());
+    }
+
+    public void editPost(String modifiedTitle, String modifiedBody) {
+        this.title = modifiedTitle;
+        this.body = modifiedBody;
     }
 }
