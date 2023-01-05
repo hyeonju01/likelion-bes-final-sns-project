@@ -1,6 +1,6 @@
 package com.likelion.mutsasns.domain.dto;
 
-import com.likelion.mutsasns.domain.Post;
+import com.likelion.mutsasns.domain.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,14 +24,14 @@ public class PostResponse {
     private LocalDateTime createdAt; //작성일
     private LocalDateTime lastModifiedAt; //최종수정일
 
-    public static PostResponse of(Optional<Post> post) {
+    public static PostResponse of(Post post) {
         return PostResponse.builder()
-                .postId(post.get().getId())
-                .title(post.get().getTitle())
-                .body(post.get().getBody())
-                .userName(post.get().getUser().getUserName())
-                .createdAt(post.get().getCreatedAt())
-                .lastModifiedAt(post.get().getLastModifiedAt())
+                .postId(post.getId())
+                .title(post.getTitle())
+                .body(post.getBody())
+                .userName(post.getUser().getUserName())
+                .createdAt(post.getCreatedAt())
+                .lastModifiedAt(post.getLastModifiedAt())
                 .build();
     }
 }
