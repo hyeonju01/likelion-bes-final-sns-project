@@ -1,7 +1,7 @@
 //package com.likelion.mutsasns.service;
 //
-//import com.likelion.mutsasns.domain.Post;
-//import com.likelion.mutsasns.domain.User;
+//import com.likelion.mutsasns.domain.entity.Post;
+//import com.likelion.mutsasns.domain.entity.User;
 //import com.likelion.mutsasns.repository.PostRepository;
 //import com.likelion.mutsasns.repository.UserRepository;
 //import org.junit.jupiter.api.Assertions;
