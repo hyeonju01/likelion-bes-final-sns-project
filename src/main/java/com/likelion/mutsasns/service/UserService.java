@@ -1,6 +1,6 @@
 package com.likelion.mutsasns.service;
 
-import com.likelion.mutsasns.domain.User;
+import com.likelion.mutsasns.domain.entity.User;
 import com.likelion.mutsasns.domain.dto.UserDto;
 import com.likelion.mutsasns.domain.dto.UserJoinRequest;
 import com.likelion.mutsasns.exception.ErrorCode;
@@ -23,7 +23,7 @@ public class UserService {
     private String secretKey;
     private final long expiredTimeMs = 1000 * 60 * 60L;
 
-    // 회원가입 서비스 구현부
+    // 회원가입
     public UserDto join(UserJoinRequest req) {
 
         userRepository.findByUserName(req.getUserName())
@@ -41,7 +41,7 @@ public class UserService {
                 .build();
     }
 
-    // 로그인 서비스 구현부
+    // 로그인
     public String login(String userName, String password) {
         /*
         UserService 자체에서 error 처리하는 기능

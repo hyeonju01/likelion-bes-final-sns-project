@@ -1,6 +1,6 @@
 package com.likelion.mutsasns.controller;
 
-import com.likelion.mutsasns.domain.Response;
+import com.likelion.mutsasns.domain.entity.Response;
 import com.likelion.mutsasns.domain.dto.*;
 import com.likelion.mutsasns.service.UserService;
 import lombok.RequiredArgsConstructor;

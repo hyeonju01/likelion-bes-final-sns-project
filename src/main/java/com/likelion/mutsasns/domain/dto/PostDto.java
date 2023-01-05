@@ -1,10 +1,13 @@
 package com.likelion.mutsasns.domain.dto;
 
-import com.likelion.mutsasns.domain.Post;
+import com.likelion.mutsasns.domain.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class PostDto {
     private Long id;

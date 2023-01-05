@@ -1,6 +1,6 @@
 package com.likelion.mutsasns.domain.dto;
 
-import com.likelion.mutsasns.domain.User;
+import com.likelion.mutsasns.domain.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

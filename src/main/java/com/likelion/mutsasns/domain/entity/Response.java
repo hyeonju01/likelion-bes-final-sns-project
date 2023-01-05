@@ -1,4 +1,4 @@
-package com.likelion.mutsasns.domain;
+package com.likelion.mutsasns.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
