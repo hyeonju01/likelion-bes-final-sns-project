@@ -128,8 +128,7 @@
 ## 📑 ER Diagram
 
 ---
-![](/Users/hyeonju/Likelion_BES/MutsaSNS/MutsaSNS ERD_final.png)
-![](MutsaSNS ERD_final.png)
+![](MutsaSNS_ERD_final.png)
 <br>
 <br>
 
