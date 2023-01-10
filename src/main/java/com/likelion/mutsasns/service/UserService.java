@@ -1,5 +1,6 @@
 package com.likelion.mutsasns.service;
 
+import com.likelion.mutsasns.domain.dto.UserJoinResponse;
 import com.likelion.mutsasns.domain.entity.User;
 import com.likelion.mutsasns.domain.dto.UserDto;
 import com.likelion.mutsasns.domain.dto.UserJoinRequest;
@@ -23,25 +24,22 @@ public class UserService {
     private String secretKey;
     private final long expiredTimeMs = 1000 * 60 * 60L;
 
-    // 회원가입
-    public UserDto join(UserJoinRequest req) {
+    // 회원가입 서비스 ----------------------------------------------------------------------------------
+    public UserJoinResponse join(UserJoinRequest userJoinRequest) {
 
-        userRepository.findByUserName(req.getUserName())
+        userRepository.findByUserName(userJoinRequest.getUserName())
                 .ifPresent(user -> {
-                    throw new SnsException(ErrorCode.DUPLICATED_USER_NAME, String.format("userName: %s", req.getUserName())); //2nd Parameter 확인필요
+                    throw new SnsException(ErrorCode.DUPLICATED_USER_NAME,
+                            String.format("userName: %s", userJoinRequest.getUserName()));
                 });
 
-        String password = encoder.encode(req.getPassword());
-        User savedUser = userRepository.save(req.toEntity(password));
+        //String password = encoder.encode(userJoinRequest.getPassword());
+        User newbie = userRepository.save(userJoinRequest.toEntity());
 
-        return UserDto.builder()
-                .id(savedUser.getId())
-                .userName(savedUser.getUserName())
-                .password(savedUser.getPassword())
-                .build();
+        return new UserJoinResponse(newbie.getId(), newbie.getUserName());
     }
 
-    // 로그인
+    // 로그인 서비스  ----------------------------------------------------------------------------------
     public String login(String userName, String password) {
         /*
         UserService 자체에서 error 처리하는 기능
