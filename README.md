@@ -7,17 +7,17 @@
 ## 🛠 개발 환경
 
 ---
-﹅ OS: macOS 12.6 <br>
-﹅ IDE: IntelliJ 2022.2.3 <br>
-﹅ Language: Java 11 <br>
-﹅ FrameWork: Spring boot 2.7.5 <br>
-﹅ Virtual Server: AWS EC2 <br>
-﹅ Database: MySQL <br>
-﹅ Authentication&Authorization: Spring Security, Jwt <br>
-﹅ Testing: Junit 5 <br>
-﹅ Build: Gradle (v. 7.5.1) <br> 
-﹅ Deploy: docker (v. 20.10.22) <br>
-﹅ CI&CD: Gitlab Pipeline, Linux crontab
+﹅ **OS**: macOS 12.6 <br>
+﹅ **IDE**: IntelliJ 2022.2.3 <br>
+﹅ **Language**: Java 11 <br>
+﹅ **FrameWork**: Spring boot 2.7.5 <br>
+﹅ **Virtual Server**: AWS EC2 <br>
+﹅ **Database**: MySQL <br>
+﹅ **Authentication&Authorization**: Spring Security, Jwt <br>
+﹅ **Testing**: Junit 5 <br>
+﹅ **Build**: Gradle (v. 7.5.1) <br> 
+﹅ **Deploy**: docker (v. 20.10.22) <br>
+﹅ **CI&CD**: Gitlab Pipeline, Linux crontab
 
 ## 📑 2차 미션 구현 완료 리스트 
 
@@ -128,8 +128,8 @@
 ## 📑 ER Diagram
 
 ---
+![](/Users/hyeonju/Likelion_BES/MutsaSNS/MutsaSNS ERD_final.png)
 ![](MutsaSNS ERD_final.png)
-
 <br>
 <br>
 
