@@ -3,12 +3,14 @@ package com.likelion.mutsasns.controller;
 
 import com.likelion.mutsasns.domain.entity.Response;
 import com.likelion.mutsasns.domain.dto.*;
+import com.likelion.mutsasns.domain.dto.CommentEditResponse;
 import com.likelion.mutsasns.service.CommentService;
 import com.likelion.mutsasns.service.PostService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,8 +28,9 @@ public class PostController {
     // [ v ] Swagger Test Passed
     // [ v ] return 형식 맞추기
     @PostMapping("")
-    public ResponseEntity<Response<PostAddResponse>> registerPost(@RequestBody PostAddRequest dto) {
-        PostAddResponse postAddResponse = postService.add(dto);
+    public ResponseEntity<Response<PostAddResponse>> registerPost(@RequestBody PostAddRequest dto, Authentication authentication) {
+        String userName = authentication.getName();
+        PostAddResponse postAddResponse = postService.createPost(dto, userName);
         return ResponseEntity.ok().body(Response.success(postAddResponse));
     }
 
@@ -99,6 +102,12 @@ public class PostController {
     // [  ] Passed Swagger Test
     // [  ] 리턴 형식 올바르게 나오는지 확인
 //    @PutMapping("/{postId}/comments/{id}")
+//    public ResponseEntity<Response<CommentEditResponse>> commentModify() {
+//        CommentEditRequest commentEditRequest;
+//        CommentEditResponse commentEditResponse = commentService.updateComment(@PathVariable Long commentId, )
+//        return ResponseEntity.ok().body(Response.success());
+//    }
+
 
     // 📌
     // [  ] 댓글 삭제
