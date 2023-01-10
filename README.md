@@ -128,8 +128,9 @@
 ## 📑 ER Diagram
 
 ---
-![](/Users/hyeonju/Likelion_BES/MutsaSNS/MutsaSNS ERD_final.png)
-![](MutsaSNS ERD_final.png)
+https://gitlab.com/hyeonju01/finalproject_leehyeonju/-/raw/main/MutsaSNS%20ERD_final.png
+
+
 <br>
 <br>
 
