@@ -21,19 +21,23 @@ public class SecurityConfig {
     @Value("${jwt.secret}")
     private String secretKey;
 
+    // 모든 요청이 서블릿에 도달하기 전에 필터체인을 마주친다.
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .httpBasic().disable()
                 .csrf().disable() //크로스사이트 기능
-                .cors().and()
+                .cors()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/", "/css/", "/images/", "/js/", "/swagger-ui/", "/v3/api-docs/**").permitAll()
                 .antMatchers("/api/v1/users/join", "/api/v1/users/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").authenticated()
+
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
                 .and()
                 .addFilterBefore(new JwtFilter(userService, secretKey), UsernamePasswordAuthenticationFilter.class)
                 .build();
