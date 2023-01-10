@@ -2,7 +2,11 @@ package com.likelion.mutsasns.service;
 
 import com.likelion.mutsasns.domain.entity.Post;
 import com.likelion.mutsasns.domain.dto.*;
+import com.likelion.mutsasns.domain.entity.User;
+import com.likelion.mutsasns.exception.ErrorCode;
+import com.likelion.mutsasns.exception.SnsException;
 import com.likelion.mutsasns.repository.PostRepository;
+import com.likelion.mutsasns.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,13 +24,15 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     // 포스트 등록
-    public PostAddResponse add(PostAddRequest dto) {
-        Post post = dto.toEntity();
+    public PostAddResponse createPost(PostAddRequest dto, String userName) {
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(() -> new SnsException(ErrorCode.INVALID_PERMISSION, ""));
+        Post post = dto.toEntity(user);
         Post registerdPost = postRepository.save(post);
-        PostAddResponse postAddResponse = new PostAddResponse(registerdPost.getId(), "포스트 등록 완료");
-        return postAddResponse;
+        return new PostAddResponse(registerdPost.getId(), "포스트 등록 완료");
     }
 
     // 포스트 상세 (1개 조회)
