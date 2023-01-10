@@ -6,6 +6,7 @@ import com.likelion.mutsasns.domain.dto.*;
 import com.likelion.mutsasns.domain.dto.CommentEditResponse;
 import com.likelion.mutsasns.service.CommentService;
 import com.likelion.mutsasns.service.PostService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -23,55 +24,37 @@ public class PostController {
 
     private final CommentService commentService;
 
-    // 📌
-    // [ V ] 포스트 등록 기능 구현
-    // [ v ] Swagger Test Passed
-    // [ v ] return 형식 맞추기
     @PostMapping("")
+    @ApiOperation(value = "게시글 등록", notes = "게시글을 등록합니다.")
     public ResponseEntity<Response<PostAddResponse>> registerPost(@RequestBody PostAddRequest dto, Authentication authentication) {
         String userName = authentication.getName();
         PostAddResponse postAddResponse = postService.createPost(dto, userName);
         return ResponseEntity.ok().body(Response.success(postAddResponse));
     }
 
-    // 📌
-    // [ v ] 포스트 조회 기능 (1건)
-    // [ v ] Swagger Test Passed
-    // [ v ] return 형식 맞추기
     @GetMapping("/{postsId}")
+    @ApiOperation(value = "게시글 1건 조회", notes = "해당 Id를 가지는 게시글을 조회합니다.")
     public ResponseEntity<Response<PostResponse>> getById(@PathVariable Long postsId) {
         PostResponse postResponse = postService.findPostDetailById(postsId);
         return ResponseEntity.ok().body(Response.success(postResponse));
     }
 
-    // 📌
-    // [ v ] 포스트 조회 기능 (List, 20개)
-    // [ v ] Swagger Test Passed
-    // [ v ] return 형식 맞추기
     @GetMapping("")
+    @ApiOperation(value = "게시글 목록 조회", notes = "게시글을 20건씩 조회합니다.")
     public ResponseEntity<Response<PostListResponse>> getAll(Pageable pageable) {
         PostListResponse postListResponse = postService.list(pageable);
         return ResponseEntity.ok().body(Response.success(postListResponse));
     }
 
-    // 📌
-    // [ v ] 포스트 수정 기능 구현
-    // [ v ] Swagger Test Passed
-    // [ v ] return 형식 맞추기
     @PutMapping("/{postId}")
+    @ApiOperation(value = "게시글 수정", notes = "해당 Id를 가지는 게시글을 수정합니다.")
     public ResponseEntity<Response<PostEditResponse>> updatePost(@PathVariable Long postId, @RequestBody PostEditRequest dto) {
-
         PostEditResponse postEditResponse = postService.edit(postId, dto);
-
         return ResponseEntity.ok().body(Response.success(postEditResponse));
     }
 
-    // 📌
-    // [ v ] 포스트 삭제 기능
-    // [ v ] Swagger Test Passed
-    // [ v ] return 형식 맞추기
-    // [  ] 포스트 삭제 시 포스트에 달린 댓글도 모두 삭제하는 기능 추가
     @DeleteMapping("/post/{id}")
+    @ApiOperation(value = "게시글 삭제", notes = "해당 Id를 가지는 게시글을 삭제합니다.")
     public ResponseEntity<Response<PostDeleteResponse>> deletePost(@PathVariable Long id) {
         PostDeleteResponse postDeleteResponse = postService.deletePostById(id);
         return ResponseEntity.ok().body(Response.success(postDeleteResponse));
