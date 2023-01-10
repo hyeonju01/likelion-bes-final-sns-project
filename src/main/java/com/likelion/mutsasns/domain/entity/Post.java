@@ -8,8 +8,8 @@ import java.util.List;
 
 @Entity
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @ToString
 public class Post extends BaseEntity{
